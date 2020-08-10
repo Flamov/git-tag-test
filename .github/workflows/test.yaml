@@ -8,7 +8,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    needs: foo
     steps:
+      - name: echo stuff
+        run: echo ${{ github }}
+  
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -30,3 +34,9 @@ jobs:
           npm version ${{ steps.tag.outputs.tag }} --no-git-tag-version --allow-same-version
           git commit -am "${{ steps.tag.outputs.tag }}"
           git push origin HEAD:master
+  foo:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: foo
+        run: echo ${{ steps.tag.outputs.tag }}
+      - name: blah
