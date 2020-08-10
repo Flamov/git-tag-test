@@ -25,5 +25,5 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          npm --no-git-tag-version --allow-same-version version ${{ steps.tag.outputs.tag }}
+          npm version ${{ steps.tag.outputs.tag }} --no-git-tag-version --allow-same-version
           git push
