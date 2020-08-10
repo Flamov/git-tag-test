@@ -23,7 +23,7 @@ jobs:
 
       - name: Get git tag
         id: tag
-        run: echo ::set-output name=tag::${${{ github.ref }}#refs/tags/}
+        run: echo "::set-output name=tag::$(git --no-pager describe --tags $(git rev-list --tags --max-count=1))"
 
       - name: Update package version
         run: |
