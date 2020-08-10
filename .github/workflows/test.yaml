@@ -39,4 +39,3 @@ jobs:
     steps:
       - name: foo
         run: echo ${{ steps.tag.outputs.tag }}
-      - name: blah
