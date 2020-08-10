@@ -25,7 +25,8 @@ jobs:
 
       - name: Update package version
         run: |
-          git config user.name ${{ github.actor }}
+          git config user.name Github Action Bot
+          git config user.email action@github.com
           npm version ${{ steps.tag.outputs.tag }} --no-git-tag-version --allow-same-version
           git commit -am "${{ steps.tag.outputs.tag }}"
           git push origin HEAD:master
