@@ -9,9 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: echo stuff
-        run: echo ${{ github }}
-  
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -33,9 +30,20 @@ jobs:
           npm version ${{ steps.tag.outputs.tag }} --no-git-tag-version --allow-same-version
           git commit -am "${{ steps.tag.outputs.tag }}"
           git push origin HEAD:master
+
   foo:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: foo
-        run: echo ${{ steps.tag.outputs.tag }}
+      - name: Get git hash
+        id: hash
+        run: echo ::set-output name=hash::$(git rev-parse --short=7 ${{ github.sha }})
+
+      - name: Get git tag
+        id: tag
+        run: echo "::set-output name=tag::$(git --no-pager describe --tags $(git rev-list --tags --max-count=1))"
+      
+      - name: echo stuff
+        run: |
+          echo ${{ steps.hash.outputs.hash }}
+          echo ${{ steps.tag.outputs.tag }}
