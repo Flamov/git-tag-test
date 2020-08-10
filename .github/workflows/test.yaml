@@ -21,5 +21,8 @@ jobs:
 
       - name: Update package version
         run: |
+          git checkout HEAD^
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           npm --no-git-tag-version --allow-same-version version ${{ steps.tag.outputs.tag }}
           git push
