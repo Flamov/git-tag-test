@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: master
 
       - name: Use Node.js 12
         uses: actions/setup-node@v1
@@ -21,7 +23,6 @@ jobs:
 
       - name: Update package version
         run: |
-          git checkout master
           git config user.name github-actions
           git config user.email github-actions@github.com
           npm --no-git-tag-version --allow-same-version version ${{ steps.tag.outputs.tag }}
