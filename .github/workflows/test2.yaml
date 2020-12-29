@@ -32,4 +32,4 @@ jobs:
         run: echo "${{ github.event.inputs.environment }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
 
       - name: Debug
-        run: echo "${{ github }}"
+        run: echo "${{ github.ref }}"
