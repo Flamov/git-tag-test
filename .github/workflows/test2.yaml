@@ -1,19 +1,23 @@
 name: test2
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       environment:
         description: Environment Name
         required: true
         default: dev7
-  push:
-    branches:
-      - feature/test2
 
 jobs:
   test2:
     runs-on: ubuntu-20.04
+    
+    strategy:
+      matrix:
+        environment: ['${{ github.event.inputs.environment || dev7 }}']
 
     steps:
       - uses: actions/checkout@v2
@@ -29,4 +33,4 @@ jobs:
         run: echo "::set-output name=branch::$(BRANCH=${{ github.ref }}; BRANCH=${BRANCH#refs/heads/}; echo ${BRANCH////-})"
 
       - name: Log
-        run: echo "${{ github.event.inputs.environment || 'dev7' }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
+        run: echo "${{ matrix.environment }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
