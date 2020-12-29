@@ -29,4 +29,4 @@ jobs:
         run: echo "::set-output name=branch::$(BRANCH=${{ github.ref }}; BRANCH=${BRANCH#refs/heads/}; echo ${BRANCH////-})"
 
       - name: Log
-        run: echo "${{ github.event.inputs.environment | 'dev7' }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
+        run: echo "${{ github.event.inputs.environment || 'dev7' }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
