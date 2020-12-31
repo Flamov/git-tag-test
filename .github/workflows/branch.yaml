@@ -12,7 +12,8 @@ jobs:
   branch:
     runs-on: ubuntu-20.04
 
-    if: contains([dev1, dev2, dev3, dev4, dev5, dev6, dev7, dev8, dev9, dev10, integration, regression, staging], 'dev7')
+    if: if [[ 'dev7' =~ ^dev([1-9]|10)$|integration|regression|staging ]]; then echo true; else echo false; fi
+    
 
     steps:
       - uses: actions/checkout@v2
