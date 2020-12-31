@@ -14,10 +14,8 @@ on:
 jobs:
   test2:
     runs-on: ubuntu-20.04
-    
-    strategy:
-      matrix:
-        environment: ['${{ github.event.inputs.environment || "dev7" }}']
+
+    if: contains([dev1, dev2, dev3, dev4, dev5, dev6, dev7, dev8, dev9, dev10, integration, regression, staging], ${{ github.event.inputs.environment }})
 
     steps:
       - uses: actions/checkout@v2
@@ -33,4 +31,4 @@ jobs:
         run: echo "::set-output name=branch::$(BRANCH=${{ github.ref }}; BRANCH=${BRANCH#refs/heads/}; echo ${BRANCH////-})"
 
       - name: Log
-        run: echo "${{ matrix.environment }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
+        run: echo "${{ github.event.inputs.environment }}-${{ steps.hash.outputs.hash }}-${{ steps.branch.outputs.branch }}"
