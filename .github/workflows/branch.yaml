@@ -1,4 +1,4 @@
-name: Branch action
+name: Deploy branch to ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:
